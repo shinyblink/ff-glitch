@@ -16,7 +16,7 @@
 // TODO: replace ntohl
 
 static uint32_t w, h;
-static unsigned char buf[64] = {0};
+static unsigned char buf[8] = {0};
 static unsigned char img;
 static struct timeval tv;
 
@@ -60,7 +60,7 @@ unsigned int randn(unsigned int n) {
 // Probability.
 // TODO: Figure out how to make the number of glitching related
 // to the amount of pixels.
-#define GLITCHES() (40 + randn(50))
+#define GLITCHES() (20 + randn(30))
 
 #define GLITCH_INVERT      10
 #define GLITCH_INVERT_PXM  1
@@ -73,10 +73,6 @@ unsigned int randn(unsigned int n) {
 
 #define GLITCH_SWAP        20
 #define GLITCH_SWAP_PXM    4
-
-#define GLITCH_COMPENSATEC 8
-#define GLITCH_COMPENSATER (GLITCH_COMPENSATEC * 16)
-#define GLITCH_COMPENSATEM ((skipped / GLITCH_COMPENSATEC))
 
 #define GLITCHN (GLITCH_INVERT + GLITCH_SKIP + GLITCH_CORRUPT + GLITCH_SWAP)
 #define SEL(i, name) if (n < (name)) return (i); n -= (name)
@@ -96,7 +92,7 @@ int main(int argc, char* argv[]) {
 	unsigned int glitches = GLITCHES();
 
 	bread(8);
-	if (strcmp(buf, "farbfeld") != 0) {
+	if (strncmp(buf, "farbfeld", 8) != 0) {
 		fprintf(stderr, "stdin is not a farbfeld image?\n");
 		return 1;
 	}

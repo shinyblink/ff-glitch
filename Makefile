@@ -1,15 +1,19 @@
 CC ?= cc
 CFLAGS ?= -Os
 CPPLAGS += -pedantic -Wall
+LDFLAGS += -lm
+
+DESTDIR ?= /usr/local
 
 BINS=ff-glitch ff-glitch2
 
 all: $(BINS)
 
-ff-glitch: ff-glitch.c
-	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o ff-glitch $^
-ff-glitch2: ff-glitch2.c
-	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o ff-glitch2 $^
+.c:
+	$(CC) -o $@ $(CPPFLAGS) $(CFLAGS) $< $(LDFLAGS)
+
+install: $(BINS)
+	install $(BINS) $(DESTDIR)/bin
 
 clean:
 	rm -f $(BINS)

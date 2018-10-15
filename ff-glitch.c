@@ -16,7 +16,7 @@
 // TODO: replace ntohl
 
 static uint32_t w, h;
-static unsigned char buf[64] = {0};
+static unsigned char buf[8] = {0};
 static unsigned char img;
 static struct timeval tv;
 
@@ -60,7 +60,7 @@ int main(int argc, char* argv[]) {
 	unsigned int glitches = 40 + randn(50);
 
 	bread(8);
-	if (strcmp(buf, "farbfeld") != 0) {
+	if (strncmp(buf, "farbfeld", 8) != 0) {
 		fprintf(stderr, "stdin is not a farbfeld image?\n");
 		return 1;
 	}
