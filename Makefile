@@ -3,7 +3,8 @@ CFLAGS ?= -Os
 CPPLAGS += -pedantic -Wall
 LDFLAGS += -lm
 
-DESTDIR ?= /usr/local
+PREFIX ?= /usr/local
+DESTDIR ?= /
 
 BINS=ff-glitch ff-glitch2
 
@@ -13,7 +14,8 @@ all: $(BINS)
 	$(CC) -o $@ $(CPPFLAGS) $(CFLAGS) $< $(LDFLAGS)
 
 install: $(BINS)
-	install $(BINS) $(DESTDIR)/bin
+	install -d $(DESTDIR)/$(PREFIX)/bin
+	install $(BINS) $(DESTDIR)/$(PREFIX)/bin
 
 clean:
 	rm -f $(BINS)
